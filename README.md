@@ -78,3 +78,38 @@ API for the Matrix-RushsRescueRangers app
     "shelterId": 0
   }
 ]`
+
+**Show Animal**
+----
+* **URL**
+/api/animals/:id
+
+* **Method:**
+    `GET`
+
+* **URL Params**
+  **Required:**
+  `id=[integer]`
+
+* **Data Params**
+    None
+
+* **Success Response**
+
+* **Code:** 200 <br/>
+  **Content:** <br/>
+`[
+  {
+    "id": 1,
+    "name": "Fluffy",
+    "species": "Dog",
+    "imageUrl": "https://i.imgur.com/eZwTsb6.jpg",
+    "gender": "M",
+    "description": "Quis nostrum exercitationem ullam corporis suscipit laboriosam cosmos shores.",
+    "isAdopted": false,
+    "shelterId": 0
+  }
+]`
+
+* **Error Response:**
+* **Code:**204 NO CONTENT<br/>

@@ -69,10 +69,20 @@ namespace RescueRangers.API
                 },
                 new AnimalDto()
                 {
-                    Id = 2,
-                    Name = "Pickles",
-                    Species = "Cat",
-                    ImageUrl = "https://i.imgur.com/w6TFe5X.jpg",
+                    Id = 3,
+                    Name = "Trigger",
+                    Species = "Horse",
+                    ImageUrl = "https://i.imgur.com/I7gvJ42.jpg",
+                    Gender = "F",
+                    Description = "Realm of the galaxies extraordinary claims require extraordinary evidence tingling of the spine inconspicuous",
+                    IsAdopted = true
+                },
+                 new AnimalDto()
+                {
+                    Id = 4,
+                    Name = "Chorky",
+                    Species = "Pig",
+                    ImageUrl = "https://i.imgur.com/qJ30HYJ.jpg",
                     Gender = "M",
                     Description = "Realm of the galaxies extraordinary claims require extraordinary evidence tingling of the spine inconspicuous",
                     IsAdopted = true
