@@ -12,11 +12,13 @@ namespace RescueRangers.API.Controllers
     [Route("api/[controller]")]
     public class AnimalsController : Controller
     {
+
         [HttpGet()]
         public IActionResult GetAnimals()
         {
             return Ok(AnimalsDataStore.Current.Animals);
         }
+
         [HttpGet("{id}", Name = "GetAnimal")]
         public IActionResult GetAnimal(int id)
         {
@@ -27,14 +29,21 @@ namespace RescueRangers.API.Controllers
             }
             return Ok(animalToReturn);
         }
+
         [HttpPost()]
-        public IActionResult CreateAnimal(
-            [FromBody] AnimalForCreationDto Animal)
+        public IActionResult CreateAnimal([FromBody] AnimalForCreationDto Animal)
+
         {
-            if(Animal == null)
+            if (Animal == null)
             {
                 return BadRequest();
             }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var highestAnimalId = AnimalsDataStore.Current.Animals.Max(animal => animal.Id);
             var newAnimal = new AnimalDto()
             {
@@ -47,8 +56,52 @@ namespace RescueRangers.API.Controllers
                 IsAdopted = Animal.IsAdopted,
                 ShelterId = Animal.ShelterId
             };
+
             AnimalsDataStore.Current.Animals.Add(newAnimal);
             return CreatedAtRoute("GetAnimal", new { id = newAnimal.Id }, newAnimal);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateAnimal(int id, [FromBody] AnimalDto UpdatedAnimalInfo )
+        {
+            if ( UpdatedAnimalInfo == null )
+            {
+                return BadRequest();
+            }
+            if ( !ModelState.IsValid )
+            {
+                return BadRequest();
+            }
+
+            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+
+
+            if (animalToUpdate == null)
+            {
+                return NotFound() ;
+
+            }
+
+            animalToUpdate.Name = UpdatedAnimalInfo.Name;
+            animalToUpdate.Species = UpdatedAnimalInfo.Species;
+            animalToUpdate.ImageUrl = UpdatedAnimalInfo.ImageUrl;
+            animalToUpdate.Gender = UpdatedAnimalInfo.Gender;
+            animalToUpdate.Description = UpdatedAnimalInfo.Description;
+
+            return Ok(animalToUpdate);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAnimal(int id)
+        {
+            var AnimalToDelete = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            if ( AnimalToDelete == null )
+            {
+                return NotFound(); 
+            }
+            AnimalsDataStore.Current.Animals.Remove(AnimalToDelete);
+
+            return NoContent();
         }
     }
 }

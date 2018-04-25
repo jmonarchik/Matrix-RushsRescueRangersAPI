@@ -1,6 +1,14 @@
 # Matrix-RushsRescueRangersAPI
 API for the Matrix-RushsRescueRangers app
 
+**Backlog:**
+1. ~~Get All Animals Action~~
+2. ~~Get Animal Action~~
+3. ~~Create Animal Action~~
+4. ~~Delete Animal Action~~
+5. ~~Update Animal Action~~
+6. Adoption
+
 **Show All Animals**
 ----
 * **URL**
@@ -113,3 +121,74 @@ API for the Matrix-RushsRescueRangers app
 
 * **Error Response:**
 * **Code:**204 NO CONTENT<br/>
+
+=======================================================================
+
+**Update Animal**
+----
+* **URL**
+/api/animals/:id
+
+* **Method:**
+    `PUT`
+
+* **URL Params**
+  **Required:**
+  `id=[integer]`
+
+* **Data Params**
+    Animal: <br/>
+    `{
+      "id": number,
+      "name": string,
+      "species": string,
+      "imageUrl": string,
+      "gender": string,
+      "description": string,
+      "isAdopted": boolean,
+      "shelterId": number
+    }`
+
+* **Success Response**
+
+* **Code:** 200 <br/>
+  **Content:** <br/>
+`[
+  {
+    "id": 1,
+    "name": "Fluffy",
+    "species": "Dog",
+    "imageUrl": "https://i.imgur.com/eZwTsb6.jpg",
+    "gender": "M",
+    "description": "Quis nostrum exercitationem ullam corporis suscipit laboriosam cosmos shores.",
+    "isAdopted": false,
+    "shelterId": 0
+  }
+]`
+
+* **Error Response:**
+* **Code:**404 NOT FOUND<br/>
+
+**Delete Animal**
+----
+* **URL**
+/api/animals/:id
+
+* **Method:**
+    `PUT`
+
+* **URL Params**
+  **Required:**
+  `id=[integer]`
+
+* **Data Params**
+    None
+
+* **Success Response**
+
+* **Code:** 204 NO CONTENT<br/>
+  **Content:** <br/>
+    None
+
+* **Error Response:**
+* **Code:**404 NOT FOUND<br/>
