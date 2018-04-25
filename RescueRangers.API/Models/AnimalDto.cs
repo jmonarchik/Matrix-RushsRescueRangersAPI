@@ -7,7 +7,7 @@ namespace RescueRangers.API.Models
 {
     public class AnimalDto
     {
-        public uint Id { get; set; }
+        public uint? Id { get; set; }
         public string Name { get; set; }
         public string Species { get; set; }
         public string ImageUrl { get; set; }
