@@ -11,6 +11,9 @@
   <ItemGroup>
     <Compile Remove="AnimalForCreationDto.cs" />
     <Compile Remove="Controllers\ValuesController.cs" />
+    <Compile Remove="GlobalSuppressions.cs" />
+    <Compile Remove="Models\Class.cs" />
+    <Compile Remove="Models\Class1.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +24,7 @@
     <PackageReference Include="Markdown" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="Swashbuckle" Version="5.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>

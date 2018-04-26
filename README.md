@@ -7,7 +7,17 @@ API for the Matrix-RushsRescueRangers app
 3. ~~Create Animal Action~~
 4. ~~Delete Animal Action~~
 5. ~~Update Animal Action~~
-6. Adoption
+6. ~~Adoption~~
+	*Create Adoption
+	*Create Adopter
+	*Update Animal with Adoption Id
+
+**Swagger Info**
+* **UI:**
+	`"/"`
+
+* **JSON:**
+	`"/swagger/v1/swagger.json"`
 
 **Show All Animals**
 ----
@@ -122,8 +132,6 @@ API for the Matrix-RushsRescueRangers app
 * **Error Response:**
 * **Code:**204 NO CONTENT<br/>
 
-=======================================================================
-
 **Update Animal**
 ----
 * **URL**
@@ -172,7 +180,7 @@ API for the Matrix-RushsRescueRangers app
 **Delete Animal**
 ----
 * **URL**
-/api/animals/:id
+`"/api/animals/:id"`
 
 * **Method:**
     `PUT`
@@ -192,3 +200,47 @@ API for the Matrix-RushsRescueRangers app
 
 * **Error Response:**
 * **Code:**404 NOT FOUND<br/>
+
+**Create Adoption**
+---
+* **URL**
+`"/api/adoptions"`
+
+* **Method:**
+	'POST'
+* **URL PARAMS**
+	None
+* **Data Params**
+	AdoptionBody: <br/>
+	`{
+		{
+		  "animal": {
+			"id": 4,
+			"name": "string",
+			"species": "string",
+			"imageUrl": "string",
+			"gender": "string",
+			"description": "string",
+			"isAdopted": true,
+			"adoptionId": 0,
+			"shelterId": 0
+		  },
+		  "adopter": {
+			"id": 0,
+			"firstName": "Bradford",
+			"lastName": "Stanley",
+			"address": "string",
+			"city": "string",
+			"state": "string",
+			"zipcode": 0,
+			"phoneNo": "string"
+		  }
+		}
+	}`
+* **Success Response**
+
+* **Code:** 200 <br/>
+
+* **Error Response:**
+* **Code:**404 NOT FOUND<br/>
+* **Code:**404 BAD REQUEST<br/>

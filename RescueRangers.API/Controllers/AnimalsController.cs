@@ -16,13 +16,13 @@ namespace RescueRangers.API.Controllers
         [HttpGet()]
         public IActionResult GetAnimals()
         {
-            return Ok(AnimalsDataStore.Current.Animals);
+            return Ok(DataStores.AnimalsDataStore.Current.Animals);
         }
 
         [HttpGet("{id}", Name = "GetAnimal")]
         public IActionResult GetAnimal(int id)
         {
-            var animalToReturn = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            var animalToReturn = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
             if (animalToReturn == null)
             {
                 return NoContent();
@@ -44,7 +44,7 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var highestAnimalId = AnimalsDataStore.Current.Animals.Max(animal => animal.Id);
+            var highestAnimalId = DataStores.AnimalsDataStore.Current.Animals.Max(animal => animal.Id);
             var newAnimal = new AnimalDto()
             {
                 Id = ++highestAnimalId,
@@ -57,7 +57,7 @@ namespace RescueRangers.API.Controllers
                 ShelterId = Animal.ShelterId
             };
 
-            AnimalsDataStore.Current.Animals.Add(newAnimal);
+            DataStores.AnimalsDataStore.Current.Animals.Add(newAnimal);
             return CreatedAtRoute("GetAnimal", new { id = newAnimal.Id }, newAnimal);
         }
 
@@ -73,33 +73,33 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            var AnimalToUpdate = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
 
 
-            if (animalToUpdate == null)
+            if (AnimalToUpdate == null)
             {
-                return NotFound() ;
+                return NotFound();
 
             }
 
-            animalToUpdate.Name = UpdatedAnimalInfo.Name;
-            animalToUpdate.Species = UpdatedAnimalInfo.Species;
-            animalToUpdate.ImageUrl = UpdatedAnimalInfo.ImageUrl;
-            animalToUpdate.Gender = UpdatedAnimalInfo.Gender;
-            animalToUpdate.Description = UpdatedAnimalInfo.Description;
+            AnimalToUpdate.Name = UpdatedAnimalInfo.Name;
+            AnimalToUpdate.Species = UpdatedAnimalInfo.Species;
+            AnimalToUpdate.ImageUrl = UpdatedAnimalInfo.ImageUrl;
+            AnimalToUpdate.Gender = UpdatedAnimalInfo.Gender;
+            AnimalToUpdate.Description = UpdatedAnimalInfo.Description;
 
-            return Ok(animalToUpdate);
+            return Ok(AnimalToUpdate);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteAnimal(int id)
         {
-            var AnimalToDelete = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            var AnimalToDelete = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
             if ( AnimalToDelete == null )
             {
                 return NotFound(); 
             }
-            AnimalsDataStore.Current.Animals.Remove(AnimalToDelete);
+            DataStores.AnimalsDataStore.Current.Animals.Remove(AnimalToDelete);
 
             return NoContent();
         }
