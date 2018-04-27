@@ -34,7 +34,7 @@ API for the Matrix-RushsRescueRangers app
 
 * **Code:** 200 <br/>
   **Content:**
-`[
+```
   {
     "id": 1,
     "name": "Fluffy",
@@ -95,7 +95,7 @@ API for the Matrix-RushsRescueRangers app
     "isAdopted": true,
     "shelterId": 0
   }
-]`
+```
 
 **Show Animal**
 ----
