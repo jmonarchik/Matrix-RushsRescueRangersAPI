@@ -7,7 +7,18 @@ API for the Matrix-RushsRescueRangers app
 3. ~~Create Animal Action~~
 4. ~~Delete Animal Action~~
 5. ~~Update Animal Action~~
-6. Adoption
+6. ~~Adoption~~
+	* Create Adoption
+	* Create Adopter
+	* Update Animal with Adoption Id
+7. Incorporate a Database
+
+**Swagger Info**
+* **UI:**
+	`"/"`
+
+* **JSON:**
+	`"/swagger/v1/swagger.json"`
 
 **Show All Animals**
 ----
@@ -24,7 +35,7 @@ API for the Matrix-RushsRescueRangers app
 
 * **Code:** 200 <br/>
   **Content:**
-`[
+```
   {
     "id": 1,
     "name": "Fluffy",
@@ -85,7 +96,7 @@ API for the Matrix-RushsRescueRangers app
     "isAdopted": true,
     "shelterId": 0
   }
-]`
+```
 
 **Show Animal**
 ----
@@ -106,7 +117,7 @@ API for the Matrix-RushsRescueRangers app
 
 * **Code:** 200 <br/>
   **Content:** <br/>
-`[
+```
   {
     "id": 1,
     "name": "Fluffy",
@@ -117,12 +128,10 @@ API for the Matrix-RushsRescueRangers app
     "isAdopted": false,
     "shelterId": 0
   }
-]`
+```
 
 * **Error Response:**
-* **Code:**204 NO CONTENT<br/>
-
-=======================================================================
+* **Code:** 204 NO CONTENT<br/>
 
 **Update Animal**
 ----
@@ -138,7 +147,8 @@ API for the Matrix-RushsRescueRangers app
 
 * **Data Params**
     Animal: <br/>
-    `{
+    ```
+    {
       "id": number,
       "name": string,
       "species": string,
@@ -147,13 +157,14 @@ API for the Matrix-RushsRescueRangers app
       "description": string,
       "isAdopted": boolean,
       "shelterId": number
-    }`
+    }
+    ```
 
 * **Success Response**
 
 * **Code:** 200 <br/>
   **Content:** <br/>
-`[
+```
   {
     "id": 1,
     "name": "Fluffy",
@@ -164,15 +175,15 @@ API for the Matrix-RushsRescueRangers app
     "isAdopted": false,
     "shelterId": 0
   }
-]`
+```
 
 * **Error Response:**
-* **Code:**404 NOT FOUND<br/>
+* **Code:** 404 NOT FOUND<br/>
 
 **Delete Animal**
 ----
 * **URL**
-/api/animals/:id
+`"/api/animals/:id"`
 
 * **Method:**
     `PUT`
@@ -191,4 +202,50 @@ API for the Matrix-RushsRescueRangers app
     None
 
 * **Error Response:**
-* **Code:**404 NOT FOUND<br/>
+* **Code:** 404 NOT FOUND<br/>
+
+**Create Adoption**
+---
+* **URL**
+`"/api/adoptions"`
+
+* **Method:**
+	'POST'
+* **URL PARAMS**
+	None
+* **Data Params**
+	AdoptionBody: <br/>
+	```
+	{
+		{
+		  "animal": {
+			"id": 4,
+			"name": "string",
+			"species": "string",
+			"imageUrl": "string",
+			"gender": "string",
+			"description": "string",
+			"isAdopted": true,
+			"adoptionId": 0,
+			"shelterId": 0
+		  },
+		  "adopter": {
+			"id": 0,
+			"firstName": "Bradford",
+			"lastName": "Stanley",
+			"address": "string",
+			"city": "string",
+			"state": "string",
+			"zipcode": 0,
+			"phoneNo": "string"
+		  }
+		}
+	}
+	```
+* **Success Response**
+
+* **Code:** 200 <br/>
+
+* **Error Response:**
+* **Code:** 404 NOT FOUND<br/>
+* **Code:** 404 BAD REQUEST<br/>

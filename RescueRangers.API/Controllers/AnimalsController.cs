@@ -16,13 +16,13 @@ namespace RescueRangers.API.Controllers
         [HttpGet()]
         public IActionResult GetAnimals()
         {
-            return Ok(AnimalsDataStore.Current.Animals);
+            return Ok(DataStores.AnimalsDataStore.Current.Animals);
         }
 
         [HttpGet("{id}", Name = "GetAnimal")]
         public IActionResult GetAnimal(int id)
         {
-            var animalToReturn = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            var animalToReturn = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
             if (animalToReturn == null)
             {
                 return NoContent();
@@ -44,7 +44,7 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var highestAnimalId = AnimalsDataStore.Current.Animals.Max(animal => animal.Id);
+            var highestAnimalId = DataStores.AnimalsDataStore.Current.Animals.Max(animal => animal.Id);
             var newAnimal = new AnimalDto()
             {
                 Id = ++highestAnimalId,
@@ -57,7 +57,7 @@ namespace RescueRangers.API.Controllers
                 ShelterId = Animal.ShelterId
             };
 
-            AnimalsDataStore.Current.Animals.Add(newAnimal);
+            DataStores.AnimalsDataStore.Current.Animals.Add(newAnimal);
             return CreatedAtRoute("GetAnimal", new { id = newAnimal.Id }, newAnimal);
         }
 
@@ -73,12 +73,12 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            var animalToUpdate = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
 
 
             if (animalToUpdate == null)
             {
-                return NotFound() ;
+                return NotFound();
 
             }
 
@@ -94,12 +94,12 @@ namespace RescueRangers.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteAnimal(int id)
         {
-            var AnimalToDelete = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
-            if ( AnimalToDelete == null )
+            var animalToDelete = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            if ( animalToDelete == null )
             {
                 return NotFound(); 
             }
-            AnimalsDataStore.Current.Animals.Remove(AnimalToDelete);
+            DataStores.AnimalsDataStore.Current.Animals.Remove(animalToDelete);
 
             return NoContent();
         }
