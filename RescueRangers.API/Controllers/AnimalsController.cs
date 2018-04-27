@@ -73,22 +73,22 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var AnimalToUpdate = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            var animalToUpdate = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
 
 
-            if (AnimalToUpdate == null)
+            if (animalToUpdate == null)
             {
                 return NotFound();
 
             }
 
-            AnimalToUpdate.Name = UpdatedAnimalInfo.Name;
-            AnimalToUpdate.Species = UpdatedAnimalInfo.Species;
-            AnimalToUpdate.ImageUrl = UpdatedAnimalInfo.ImageUrl;
-            AnimalToUpdate.Gender = UpdatedAnimalInfo.Gender;
-            AnimalToUpdate.Description = UpdatedAnimalInfo.Description;
+            animalToUpdate.Name = UpdatedAnimalInfo.Name;
+            animalToUpdate.Species = UpdatedAnimalInfo.Species;
+            animalToUpdate.ImageUrl = UpdatedAnimalInfo.ImageUrl;
+            animalToUpdate.Gender = UpdatedAnimalInfo.Gender;
+            animalToUpdate.Description = UpdatedAnimalInfo.Description;
 
-            return Ok(AnimalToUpdate);
+            return Ok(animalToUpdate);
         }
 
         [HttpDelete("{id}")]
