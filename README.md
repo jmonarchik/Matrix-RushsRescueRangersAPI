@@ -8,9 +8,9 @@ API for the Matrix-RushsRescueRangers app
 4. ~~Delete Animal Action~~
 5. ~~Update Animal Action~~
 6. ~~Adoption~~
-	*Create Adoption
-	*Create Adopter
-	*Update Animal with Adoption Id
+	* Create Adoption
+	* Create Adopter
+	* Update Animal with Adoption Id
 
 **Swagger Info**
 * **UI:**
@@ -130,7 +130,7 @@ API for the Matrix-RushsRescueRangers app
 ]`
 
 * **Error Response:**
-* **Code:**204 NO CONTENT<br/>
+* **Code:** 204 NO CONTENT<br/>
 
 **Update Animal**
 ----

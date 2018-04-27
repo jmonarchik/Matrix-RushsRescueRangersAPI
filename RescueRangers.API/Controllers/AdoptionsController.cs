@@ -30,18 +30,18 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var CurrentAdopters = DataStores.AdoptersDataStore.Current.Adopters;
+            var currentAdopters = DataStores.AdoptersDataStore.Current.Adopters;
 
             uint HighestAdopterId;
-            if (CurrentAdopters.Any())
+            if (currentAdopters.Any())
             {
-                HighestAdopterId = CurrentAdopters.Max(adopter => adopter.Id);
+                HighestAdopterId = currentAdopters.Max(adopter => adopter.Id);
             } else
             {
                 HighestAdopterId = 0;
             }
             
-            var NewAdopter = new AdopterDto()
+            var newAdopter = new AdopterDto()
             {
                 Id = ++HighestAdopterId,
                 FirstName = adoptionBody.Adopter.FirstName,
@@ -51,7 +51,7 @@ namespace RescueRangers.API.Controllers
                 Zipcode = adoptionBody.Adopter.Zipcode,
                 PhoneNo = adoptionBody.Adopter.PhoneNo
             };
-            AdoptersDataStore.Current.Adopters.Add(NewAdopter);
+            AdoptersDataStore.Current.Adopters.Add(newAdopter);
 
             var CurrentAdoptions = DataStores.AdoptionsDataStore.Current.Adoptions;
             uint HighestAdoptionId;
@@ -64,23 +64,23 @@ namespace RescueRangers.API.Controllers
                 HighestAdoptionId = 0;
             }
 
-            var NewAdoption = new AdoptionDto()
+            var newAdoption = new AdoptionDto()
             {
                 Id = ++HighestAdoptionId,
-                AdopterId = NewAdopter.Id,
+                AdopterId = newAdopter.Id,
                 AnimalId = adoptionBody.Animal.Id,
                 Date = DateTime.Today
             };
-            AdoptionsDataStore.Current.Adoptions.Add(NewAdoption);
+            AdoptionsDataStore.Current.Adoptions.Add(newAdoption);
 
-            var AnimalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == adoptionBody.Animal.Id);
-            if ( AnimalToUpdate == null )
+            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == adoptionBody.Animal.Id);
+            if ( animalToUpdate == null )
             {
                 return NotFound();
             }
 
-            AnimalToUpdate.IsAdopted = true;
-            AnimalToUpdate.AdoptionId = NewAdoption.Id;
+            animalToUpdate.IsAdopted = true;
+            animalToUpdate.AdoptionId = newAdoption.Id;
 
             return Ok();
         }

@@ -94,12 +94,12 @@ namespace RescueRangers.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteAnimal(int id)
         {
-            var AnimalToDelete = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
-            if ( AnimalToDelete == null )
+            var animalToDelete = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            if ( animalToDelete == null )
             {
                 return NotFound(); 
             }
-            DataStores.AnimalsDataStore.Current.Animals.Remove(AnimalToDelete);
+            DataStores.AnimalsDataStore.Current.Animals.Remove(animalToDelete);
 
             return NoContent();
         }
