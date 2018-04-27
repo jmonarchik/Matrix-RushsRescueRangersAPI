@@ -251,11 +251,11 @@ API for the Matrix-RushsRescueRangers app
 * **Code:** 404 BAD REQUEST<br/>
 
 * **Stuff I found helpful**
-[Building Your First API with ASP.NET Core](https://app.pluralsight.com/library/courses/asp-dotnet-core-api-building-first/table-of-contents)
-[Make Ctrl + D Work in Visual Studio like it does in Sublime](https://marketplace.visualstudio.com/items?itemName=thomaswelen.SelectNextOccurrence)
-[Setting up Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio%2Cvisual-studio-xml)
-[Enabling CORs](https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api)
-*Note - We don't need a package installation because the CORs package is included in AspNetCore.all
+* [Building Your First API with ASP.NET Core](https://app.pluralsight.com/library/courses/asp-dotnet-core-api-building-first/table-of-contents)
+* [Make Ctrl + D Work in Visual Studio like it does in Sublime](https://marketplace.visualstudio.com/items?itemName=thomaswelen.SelectNextOccurrence)
+* [Setting up Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-.1&tabs=visual-studio%2Cvisual-studio-xml)
+* [Enabling CORs](https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api)
+    Note - We don't need a package installation because the CORs package is included in AspNetCore.all
 
 
 
