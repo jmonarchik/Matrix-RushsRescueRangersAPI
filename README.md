@@ -11,6 +11,7 @@ API for the Matrix-RushsRescueRangers app
 	* Create Adoption
 	* Create Adopter
 	* Update Animal with Adoption Id
+7. Incorporate a Database
 
 **Swagger Info**
 * **UI:**
