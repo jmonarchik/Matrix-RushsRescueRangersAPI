@@ -116,7 +116,7 @@ API for the Matrix-RushsRescueRangers app
 
 * **Code:** 200 <br/>
   **Content:** <br/>
-`[
+```
   {
     "id": 1,
     "name": "Fluffy",
@@ -127,7 +127,7 @@ API for the Matrix-RushsRescueRangers app
     "isAdopted": false,
     "shelterId": 0
   }
-]`
+```
 
 * **Error Response:**
 * **Code:** 204 NO CONTENT<br/>
@@ -146,7 +146,8 @@ API for the Matrix-RushsRescueRangers app
 
 * **Data Params**
     Animal: <br/>
-    `{
+    ```
+    {
       "id": number,
       "name": string,
       "species": string,
@@ -155,13 +156,14 @@ API for the Matrix-RushsRescueRangers app
       "description": string,
       "isAdopted": boolean,
       "shelterId": number
-    }`
+    }
+    ```
 
 * **Success Response**
 
 * **Code:** 200 <br/>
   **Content:** <br/>
-`[
+```
   {
     "id": 1,
     "name": "Fluffy",
@@ -172,10 +174,10 @@ API for the Matrix-RushsRescueRangers app
     "isAdopted": false,
     "shelterId": 0
   }
-]`
+```
 
 * **Error Response:**
-* **Code:**404 NOT FOUND<br/>
+* **Code:** 404 NOT FOUND<br/>
 
 **Delete Animal**
 ----
@@ -199,7 +201,7 @@ API for the Matrix-RushsRescueRangers app
     None
 
 * **Error Response:**
-* **Code:**404 NOT FOUND<br/>
+* **Code:** 404 NOT FOUND<br/>
 
 **Create Adoption**
 ---
@@ -212,7 +214,8 @@ API for the Matrix-RushsRescueRangers app
 	None
 * **Data Params**
 	AdoptionBody: <br/>
-	`{
+	```
+	{
 		{
 		  "animal": {
 			"id": 4,
@@ -236,11 +239,12 @@ API for the Matrix-RushsRescueRangers app
 			"phoneNo": "string"
 		  }
 		}
-	}`
+	}
+	```
 * **Success Response**
 
 * **Code:** 200 <br/>
 
 * **Error Response:**
-* **Code:**404 NOT FOUND<br/>
-* **Code:**404 BAD REQUEST<br/>
+* **Code:** 404 NOT FOUND<br/>
+* **Code:** 404 BAD REQUEST<br/>
