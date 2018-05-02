@@ -101,7 +101,7 @@ namespace RescueRangers.API.Controllers
             }
             DataStores.AnimalsDataStore.Current.Animals.Remove(animalToDelete);
 
-            return NoContent();
+            return Ok();
         }
     }
 }

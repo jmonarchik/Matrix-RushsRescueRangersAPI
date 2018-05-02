@@ -26,6 +26,8 @@ namespace RescueRangers.API
         {
             services.AddMvc();
 
+            services.AddCors();
+
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -53,6 +55,11 @@ namespace RescueRangers.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rescue Rangers");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+    );
 
             app.UseMvc();
         }

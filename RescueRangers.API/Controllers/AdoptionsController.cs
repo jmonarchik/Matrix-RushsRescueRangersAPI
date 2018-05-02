@@ -19,9 +19,9 @@ namespace RescueRangers.API.Controllers
         }
 
         [HttpPost()]
-        public IActionResult CreateAdoption([FromBody] AdoptionBody adoptionBody)
+        public IActionResult CreateAdoption([FromBody] AdoptionBody AdoptionBody)
         {
-            if (adoptionBody.Animal == null || adoptionBody.Adopter == null)
+            if (AdoptionBody.Animal == null || AdoptionBody.Adopter == null)
             {
                 return BadRequest();
             }
@@ -44,12 +44,12 @@ namespace RescueRangers.API.Controllers
             var newAdopter = new AdopterDto()
             {
                 Id = ++HighestAdopterId,
-                FirstName = adoptionBody.Adopter.FirstName,
-                LastName = adoptionBody.Adopter.LastName, 
-                Address = adoptionBody.Adopter.Address,
-                City = adoptionBody.Adopter.City,
-                Zipcode = adoptionBody.Adopter.Zipcode,
-                PhoneNo = adoptionBody.Adopter.PhoneNo
+                FirstName = AdoptionBody.Adopter.FirstName,
+                LastName = AdoptionBody.Adopter.LastName, 
+                Address = AdoptionBody.Adopter.Address,
+                City = AdoptionBody.Adopter.City,
+                Zipcode = AdoptionBody.Adopter.Zipcode,
+                PhoneNo = AdoptionBody.Adopter.PhoneNo
             };
             AdoptersDataStore.Current.Adopters.Add(newAdopter);
 
@@ -68,12 +68,12 @@ namespace RescueRangers.API.Controllers
             {
                 Id = ++HighestAdoptionId,
                 AdopterId = newAdopter.Id,
-                AnimalId = adoptionBody.Animal.Id,
+                AnimalId = AdoptionBody.Animal.Id,
                 Date = DateTime.Today
             };
             AdoptionsDataStore.Current.Adoptions.Add(newAdoption);
 
-            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == adoptionBody.Animal.Id);
+            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == AdoptionBody.Animal.Id);
             if ( animalToUpdate == null )
             {
                 return NotFound();
@@ -82,7 +82,7 @@ namespace RescueRangers.API.Controllers
             animalToUpdate.IsAdopted = true;
             animalToUpdate.AdoptionId = newAdoption.Id;
 
-            return Ok();
+            return Ok(animalToUpdate);
         }
     }
 }
