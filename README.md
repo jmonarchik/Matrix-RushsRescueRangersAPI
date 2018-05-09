@@ -8,10 +8,14 @@ API for the Matrix-RushsRescueRangers app
 4. ~~Delete Animal Action~~
 5. ~~Update Animal Action~~
 6. ~~Adoption~~
-	* Create Adoption
-	* Create Adopter
-	* Update Animal with Adoption Id
-7. Incorporate a Database
+	* ~~Create Adoption~~
+	* ~~Create Adopter~~
+	* ~~Update Animal with Adoption Id~~
+7. ~~Enable XML comments~~
+	* ~~Create XML file and document controllers and models with XML comments ~~
+8. Refactor create Adoption function.
+9. Rethink some data types and clean up code.	
+10. Incorporate a Database
 
 **Swagger Info**
 * **UI:**
