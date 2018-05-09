@@ -1,4 +1,4 @@
-﻿using RescueRangers.API.Models;
+﻿                                                                                                                using RescueRangers.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +28,12 @@ namespace RescueRangers.API.Controllers
         /// <summary>
         /// Create a new adoption
         /// </summary>
-        /// <param name="AdoptionBody">Object containing adopter and animal objects</param>
+        /// <param name="adoptionBody">Object containing adopter and animal objects</param>
         /// <returns>Adopted animal</returns>
         [HttpPost()]
-        public IActionResult CreateAdoption([FromBody] AdoptionBody AdoptionBody)
+        public IActionResult CreateAdoption([FromBody] AdoptionBody adoptionBody)
         {
-            if (AdoptionBody.Animal == null || AdoptionBody.Adopter == null)
+            if (adoptionBody.Animal == null || adoptionBody.Adopter == null)
             {
                 return BadRequest();
             }
@@ -56,12 +56,12 @@ namespace RescueRangers.API.Controllers
             var newAdopter = new AdopterDto()
             {
                 Id = ++HighestAdopterId,
-                FirstName = AdoptionBody.Adopter.FirstName,
-                LastName = AdoptionBody.Adopter.LastName, 
-                Address = AdoptionBody.Adopter.Address,
-                City = AdoptionBody.Adopter.City,
-                Zipcode = AdoptionBody.Adopter.Zipcode,
-                PhoneNo = AdoptionBody.Adopter.PhoneNo
+                FirstName = adoptionBody.Adopter.FirstName,
+                LastName = adoptionBody.Adopter.LastName, 
+                Address = adoptionBody.Adopter.Address,
+                City = adoptionBody.Adopter.City,
+                Zipcode = adoptionBody.Adopter.Zipcode,
+                PhoneNo = adoptionBody.Adopter.PhoneNo
             };
             AdoptersDataStore.Current.Adopters.Add(newAdopter);
 
@@ -80,12 +80,12 @@ namespace RescueRangers.API.Controllers
             {
                 Id = ++HighestAdoptionId,
                 AdopterId = newAdopter.Id,
-                AnimalId = AdoptionBody.Animal.Id,
+                AnimalId = adoptionBody.Animal.Id,
                 Date = DateTime.Today
             };
             AdoptionsDataStore.Current.Adoptions.Add(newAdoption);
 
-            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == AdoptionBody.Animal.Id);
+            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == adoptionBody.Animal.Id);
             if ( animalToUpdate == null )
             {
                 return NotFound();
