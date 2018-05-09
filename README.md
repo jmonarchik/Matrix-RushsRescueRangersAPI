@@ -12,7 +12,7 @@ API for the Matrix-RushsRescueRangers app
 	* ~~Create Adopter~~
 	* ~~Update Animal with Adoption Id~~
 7. ~~Enable XML comments~~
-	* ~~Create XML file and document controllers and models with XML comments ~~
+	* ~~Create XML file and document controllers and models with XML comments~~
 8. Refactor create Adoption function.
 9. Rethink some data types and clean up code.	
 10. Incorporate a Database
@@ -254,7 +254,7 @@ API for the Matrix-RushsRescueRangers app
 * **Code:** 404 NOT FOUND<br/>
 * **Code:** 404 BAD REQUEST<br/>
 
-* **Stuff I found helpful**
+**Stuff I found helpful**
 * [Building Your First API with ASP.NET Core](https://app.pluralsight.com/library/courses/asp-dotnet-core-api-building-first/table-of-contents)
 * [Make Ctrl + D Work in Visual Studio like it does in Sublime](https://marketplace.visualstudio.com/items?itemName=thomaswelen.SelectNextOccurrence)
 * [Setting up Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-.1&tabs=visual-studio%2Cvisual-studio-xml)
