@@ -8,6 +8,15 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>bin\Debug\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+        <NoWarn>1701;1702;1705;1591</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DocumentationFile>bin\Release\netcoreapp2.0\RescueRangers.API.xml</DocumentationFile>
+    </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="AnimalForCreationDto.cs" />
     <Compile Remove="Controllers\ValuesController.cs" />
@@ -21,14 +30,29 @@
   <ItemGroup>
     <PackageReference Include="Markdown" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
+    <!--<PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.4" />-->
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
-    <PackageReference Include="Swashbuckle" Version="5.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

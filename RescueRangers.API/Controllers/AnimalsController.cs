@@ -9,16 +9,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RescueRangers.API.Controllers
 {
+    /// <summary>
+    /// Animals Controller
+    /// </summary>
     [Route("api/[controller]")]
     public class AnimalsController : Controller
     {
-
+        /// <summary>
+        /// Get All Animals
+        /// </summary>
+        /// <returns></returns>
         [HttpGet()]
         public IActionResult GetAnimals()
         {
             return Ok(DataStores.AnimalsDataStore.Current.Animals);
         }
-
+        /// <summary>
+        /// Get a specific animal by its ID
+        /// </summary>
+        /// <param name="id">Animal ID</param>
+        /// <returns>Animal with specified ID</returns>
         [HttpGet("{id}", Name = "GetAnimal")]
         public IActionResult GetAnimal(int id)
         {
@@ -29,7 +39,11 @@ namespace RescueRangers.API.Controllers
             }
             return Ok(animalToReturn);
         }
-
+        /// <summary>
+        /// Create a new Animal
+        /// </summary>
+        /// <param name="Animal">New Animal's information</param>
+        /// <returns>Newly created animal</returns>
         [HttpPost()]
         public IActionResult CreateAnimal([FromBody] AnimalForCreationDto Animal)
 
@@ -60,7 +74,12 @@ namespace RescueRangers.API.Controllers
             DataStores.AnimalsDataStore.Current.Animals.Add(newAnimal);
             return CreatedAtRoute("GetAnimal", new { id = newAnimal.Id }, newAnimal);
         }
-
+        /// <summary>
+        /// Update an animal's information
+        /// </summary>
+        /// <param name="id">Animal's ID</param>
+        /// <param name="UpdatedAnimalInfo">Animal with updated information</param>
+        /// <returns>Newly updated animal</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateAnimal(int id, [FromBody] AnimalDto UpdatedAnimalInfo )
         {
@@ -90,7 +109,11 @@ namespace RescueRangers.API.Controllers
 
             return Ok(animalToUpdate);
         }
-
+        /// <summary>
+        /// Delete an animal
+        /// </summary>
+        /// <param name="id">Animal's ID</param>
+        /// <returns>Nothing</returns>
         [HttpDelete("{id}")]
         public IActionResult DeleteAnimal(int id)
         {
@@ -101,7 +124,7 @@ namespace RescueRangers.API.Controllers
             }
             DataStores.AnimalsDataStore.Current.Animals.Remove(animalToDelete);
 
-            return NoContent();
+            return Ok();
         }
     }
 }

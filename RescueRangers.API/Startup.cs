@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.IO;
+using System.Reflection;
 
 namespace RescueRangers.API
 {
@@ -26,10 +28,19 @@ namespace RescueRangers.API
         {
             services.AddMvc();
 
+            services.AddCors();
+
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+
+
+                // Set the comments path for the Swagger JSON and UI.
+
+                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -53,6 +64,11 @@ namespace RescueRangers.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rescue Rangers");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+            );
 
             app.UseMvc();
         }

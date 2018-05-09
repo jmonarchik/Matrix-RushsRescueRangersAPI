@@ -9,9 +9,16 @@ using RescueRangers.API.DataStores;
 
 namespace RescueRangers.API.Controllers
 {
+    /// <summary>
+    /// Adopters controller
+    /// </summary>
     [Route("api/[controller]")]
     public class AdoptersController : Controller
     {
+        /// <summary>
+        /// Get all adopters
+        /// </summary>
+        /// <returns>Array of current adopters</returns>
         [HttpGet()]
         public IActionResult GetAdopters()
         {

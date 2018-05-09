@@ -1,4 +1,4 @@
-﻿using RescueRangers.API.Models;
+﻿                                                                                                                using RescueRangers.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +9,27 @@ using RescueRangers.API.DataStores;
 
 namespace RescueRangers.API.Controllers
 {
+    /// <summary>
+    /// Adoptions Controller
+    /// </summary>
     [Route("api/[controller]")]
     public class AdoptionsController : Controller
-    {
+    {   
+        /// <summary>
+        /// Get all adoptions
+        /// </summary>
+        /// <returns>Array of adoptions</returns>
         [HttpGet()]
         public IActionResult GetAdoptions()
         {
             return Ok(AdoptionsDataStore.Current.Adoptions);
         }
 
+        /// <summary>
+        /// Create a new adoption
+        /// </summary>
+        /// <param name="adoptionBody">Object containing adopter and animal objects</param>
+        /// <returns>Adopted animal</returns>
         [HttpPost()]
         public IActionResult CreateAdoption([FromBody] AdoptionBody adoptionBody)
         {
@@ -82,7 +94,7 @@ namespace RescueRangers.API.Controllers
             animalToUpdate.IsAdopted = true;
             animalToUpdate.AdoptionId = newAdoption.Id;
 
-            return Ok();
+            return Ok(animalToUpdate);
         }
     }
 }
