@@ -14,8 +14,9 @@ API for the Matrix-RushsRescueRangers app
 7. ~~Enable XML comments~~
 	* ~~Create XML file and document controllers and models with XML comments~~
 8. Refactor create Adoption function.
-9. Rethink some data types and clean up code.	
-10. Incorporate a Database
+9. Add more seeded animals.
+10. Rethink some data types and clean up code.	
+11. Incorporate a Database
 
 **Swagger Info**
 * **UI:**
