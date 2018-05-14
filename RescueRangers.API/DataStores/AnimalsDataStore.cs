@@ -62,7 +62,7 @@ namespace RescueRangers.API.DataStores
                     Id = 7,
                     Name = "Cathy",
                     Species = "Cat",
-                    ImageUrl = "https://i.imgur.com/zItMO7k.jpg",
+                    ImageUrl = "https://i.imgur.com/w6TFe5X.jpg",
                     Gender = "M",
                     Description = "Realm of the galaxies extraordinary claims require extraordinary evidence tingling of the spine inconspicuous",
                     IsAdopted = V
@@ -86,7 +86,58 @@ namespace RescueRangers.API.DataStores
                     Gender = "M",
                     Description = "Realm of the galaxies extraordinary claims require extraordinary evidence tingling of the spine inconspicuous",
                     IsAdopted = true
-                }
+                },
+                 new AnimalDto()
+                {
+                    Id = 8,
+                    Name = "Wishbone",
+                    Species = "Dog",
+                    ImageUrl = "https://i.imgur.com/cQrg37y.jpg",
+                    Gender = "M",
+                    Description = "Very well read.",
+                    IsAdopted = false
+                },
+                  new AnimalDto()
+                {
+                    Id = 9,
+                    Name = "Ezmeralda",
+                    Species = "Dog",
+                    ImageUrl = "https://i.imgur.com/rYVmcFk.jpg",
+                    Gender = "F",
+                    Description = "Very bad dog",
+                    IsAdopted = true
+                },
+                  new AnimalDto()
+                {
+                    Id = 10,
+                    Name = "Michelle",
+                    Species = "Dog",
+                    ImageUrl = "https://i.imgur.com/tSsZaew.jpg",
+                    Gender = "F",
+                    Description = "Very long dog",
+                    IsAdopted = false
+                },
+
+                  new AnimalDto()
+                {
+                    Id = 11,
+                    Name = "Chad",
+                    Species = "Dog",
+                    ImageUrl = "https://i.imgur.com/IatTsRr.jpg",
+                    Gender = "M",
+                    Description = "Good boy",
+                    IsAdopted = false
+                },
+                  new AnimalDto()
+                {
+                    Id = 13,
+                    Name = "Chelsea",
+                    Species = "Pig",
+                    ImageUrl = "https://i.imgur.com/RaksJVO.jpg",
+                    Gender = "F",
+                    Description = "Funny pig",
+                    IsAdopted = false
+                },
             };
         }
     }
