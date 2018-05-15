@@ -13,10 +13,13 @@ API for the Matrix-RushsRescueRangers app
 	* ~~Update Animal with Adoption Id~~
 7. ~~Enable XML comments~~
 	* ~~Create XML file and document controllers and models with XML comments~~
-8. Refactor create Adoption function.
-9. Add more seeded animals.
-10. Rethink some data types and clean up code.	
-11. Incorporate a Database
+8. ~~Add more seeded animals.~~
+9. Incorporate a Database
+	* ~~Create SQLite Database~~
+	* ~~Create Sample Data, initialize DB, and Create DB files.~~
+10. Refactor create Adoption function.
+11. Rethink some data types and clean up code.	
+
 
 **Swagger Info**
 * **UI:**
