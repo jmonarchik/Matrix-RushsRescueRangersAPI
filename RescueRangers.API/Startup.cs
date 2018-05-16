@@ -46,9 +46,7 @@ namespace RescueRangers.API
                 c.IncludeXmlComments(xmlPath);
             });
 
-            var connectionString = new SqliteConnection("Data Source=C:\\Users\\RMyers\\SQLite\\rescue_rangers.db");
-
-
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             //var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=rescue_rangers;Trusted_Connection=True;";
 
