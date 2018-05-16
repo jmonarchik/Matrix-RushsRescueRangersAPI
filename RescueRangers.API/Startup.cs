@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Reflection;
+using RescueRangers.API.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.Sqlite;
 
 namespace RescueRangers.API
 {
@@ -42,6 +45,14 @@ namespace RescueRangers.API
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            var connectionString = new SqliteConnection("Data Source=C:\\Users\\RMyers\\SQLite\\rescue_rangers.db");
+
+
+
+            //var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=rescue_rangers;Trusted_Connection=True;";
+
+            services.AddDbContext<WebApiDbContext>(o => o.UseSqlite(connectionString));
         }
 
 
