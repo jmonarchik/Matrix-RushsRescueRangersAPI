@@ -17,7 +17,7 @@ API for the Matrix-RushsRescueRangers app
 9. Incorporate a Database
 	* ~~Create SQLite Database~~
 	* ~~Create Sample Data, initialize DB, and Create DB files.~~
-	* ~~Wire up Entity Framework. ~~
+	* ~~Wire up Entity Framework.~~
 10. Refactor create Adoption function.
 11. Rethink some data types and clean up code.	
 
