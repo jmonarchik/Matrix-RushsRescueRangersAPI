@@ -47,9 +47,6 @@ namespace RescueRangers.API
             });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
-            //var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=rescue_rangers;Trusted_Connection=True;";
-
             services.AddDbContext<WebApiDbContext>(o => o.UseSqlite(connectionString));
         }
 
