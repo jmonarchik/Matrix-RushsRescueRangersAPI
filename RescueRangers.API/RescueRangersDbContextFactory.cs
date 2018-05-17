@@ -19,7 +19,7 @@ namespace Web
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            builder.UseSqlServer(connectionString);
+            builder.UseSqlite(connectionString);
 
             return new WebApiDbContext(builder.Options);
         }

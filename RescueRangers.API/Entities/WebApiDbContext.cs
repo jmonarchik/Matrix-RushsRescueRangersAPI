@@ -10,7 +10,7 @@ namespace RescueRangers.API.Entities
     {
         public WebApiDbContext(DbContextOptions<WebApiDbContext> options) : base(options)
         {
-            Database.Migrate();
+            Database.EnsureCreated();
         }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Adoption> Adoptions { get; set; }
