@@ -14,6 +14,8 @@ using System.Reflection;
 using RescueRangers.API.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace RescueRangers.API
 {
@@ -38,15 +40,15 @@ namespace RescueRangers.API
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
 
-
                 // Set the comments path for the Swagger JSON and UI.
-
                 var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
 
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
+
             services.AddDbContext<WebApiDbContext>(o => o.UseSqlite(connectionString));
         }
 

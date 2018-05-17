@@ -17,7 +17,7 @@ namespace Web
 
             var builder = new DbContextOptionsBuilder<WebApiDbContext>();
 
-            var connectionString = configuration["ConnectionStrings:DefaultConnection"];
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
 
             builder.UseSqlite(connectionString);
 
