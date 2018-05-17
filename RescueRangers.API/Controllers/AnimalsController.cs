@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RescueRangers.API.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,6 +16,12 @@ namespace RescueRangers.API.Controllers
     [Route("api/[controller]")]
     public class AnimalsController : Controller
     {
+        private IAnimalInfoRepository _animalInfoRepository;
+        public AnimalsController(IAnimalInfoRepository animalInfoRepository)
+        {
+            _animalInfoRepository = animalInfoRepository;
+        }
+
         /// <summary>
         /// Get All Animals
         /// </summary>
@@ -22,7 +29,22 @@ namespace RescueRangers.API.Controllers
         [HttpGet()]
         public IActionResult GetAnimals()
         {
-            return Ok(DataStores.AnimalsDataStore.Current.Animals);
+            var animalEntities = _animalInfoRepository.GetAnimals();
+            var results = new List<AnimalDto>();
+            foreach (var animalEntity in animalEntities)
+            {
+                results.Add(new AnimalDto
+                {
+                    Id = animalEntity.Id,
+                    Gender = animalEntity.Gender,
+                    Species = animalEntity.Species,
+                    ImageUrl = animalEntity.ImageUrl,
+                    Description = animalEntity.Description,
+                    Name = animalEntity.Name
+                });
+            }
+
+            return Ok(results);
         }
         /// <summary>
         /// Get a specific animal by its ID
@@ -32,11 +54,24 @@ namespace RescueRangers.API.Controllers
         [HttpGet("{id}", Name = "GetAnimal")]
         public IActionResult GetAnimal(int id)
         {
-            var animalToReturn = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
-            if (animalToReturn == null)
+
+            var animal = _animalInfoRepository.GetAnimal(id);
+
+            if (animal == null)
             {
-                return NoContent();
+                return NotFound();
             }
+            var animalToReturn = new AnimalDto()
+            {
+                Id = animal.Id,
+                Gender = animal.Gender,
+                Species = animal.Species,
+                ImageUrl = animal.ImageUrl,
+                Description = animal.Description,
+                Name = animal.Name
+
+            };
+
             return Ok(animalToReturn);
         }
         /// <summary>
