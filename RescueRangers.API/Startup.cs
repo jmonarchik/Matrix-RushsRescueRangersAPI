@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using System.Data.Common;
 using System.Data.SqlClient;
+using RescueRangers.API.Services;
 
 namespace RescueRangers.API
 {
@@ -46,12 +47,11 @@ namespace RescueRangers.API
                 c.IncludeXmlComments(xmlPath);
             });
 
-
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
-
             services.AddDbContext<WebApiDbContext>(o => o.UseSqlite(connectionString));
-        }
 
+            services.AddScoped<IAnimalInfoRepository, AnimalInfoRepository>();
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 #pragma warning disable CA1822 // Mark members as static
