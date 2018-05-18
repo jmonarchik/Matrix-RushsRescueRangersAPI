@@ -21,9 +21,9 @@ API for the Matrix-RushsRescueRangers app
 10. Change controller actions to deal with DB rather than in-memory data store.
 	* ~~Get all Animals~~
 	* ~~Get a specific Animal~~
-	* Create Animal
-	* Delete Animal
-	* Update Animal
+	* ~~Create Animal~~
+	* ~~Delete Animal~~
+	* ~~Update Animal~~
 	* Adoptions
 11. Refactor create Adoption function.
 12. Rethink some data types and clean up code.	
