@@ -21,5 +21,17 @@ namespace RescueRangers.API.Services
         {
             return _context.Animals.Where(animal => animal.Id == animalId).FirstOrDefault();
         }
+        public void AddAnimal(Animal animal)
+        {
+            _context.Animals.Add(animal);
+        }
+        public void DeleteAnimal(Animal animal)
+        {
+            _context.Animals.Remove(animal);
+        }
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace RescueRangers.API
             });
 
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
-            services.AddDbContext<WebApiDbContext>(o => o.UseSqlite(connectionString));
+            services.AddDbContext<WebApiDbContext>(options => options.UseSqlite(connectionString));
 
             services.AddScoped<IAnimalInfoRepository, AnimalInfoRepository>();
         }
@@ -77,6 +77,12 @@ namespace RescueRangers.API
                 builder.WithOrigins("http://localhost:4200")
                 .AllowAnyHeader()
             );
+
+            AutoMapper.Mapper.Initialize(config =>
+            {
+                config.CreateMap<Entities.Animal, Models.AnimalDto>();
+                config.CreateMap<Models.AnimalForCreationDto, Entities.Animal>();
+            });
 
             app.UseMvc();
         }
