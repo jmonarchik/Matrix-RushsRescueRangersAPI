@@ -1,4 +1,5 @@
-﻿using RescueRangers.API.Models;
+﻿using AutoMapper;
+using RescueRangers.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,64 +27,46 @@ namespace RescueRangers.API.Controllers
         /// Get All Animals
         /// </summary>
         /// <returns></returns>
+
         [HttpGet()]
         public IActionResult GetAnimals()
         {
             var animalEntities = _animalInfoRepository.GetAnimals();
-            var results = new List<AnimalDto>();
-            foreach (var animalEntity in animalEntities)
-            {
-                results.Add(new AnimalDto
-                {
-                    Id = animalEntity.Id,
-                    Gender = animalEntity.Gender,
-                    Species = animalEntity.Species,
-                    ImageUrl = animalEntity.ImageUrl,
-                    Description = animalEntity.Description,
-                    Name = animalEntity.Name
-                });
-            }
+            var results = Mapper.Map<IEnumerable<AnimalDto>>(animalEntities);
 
             return Ok(results);
         }
+
         /// <summary>
         /// Get a specific animal by its ID
         /// </summary>
         /// <param name="id">Animal ID</param>
         /// <returns>Animal with specified ID</returns>
+
         [HttpGet("{id}", Name = "GetAnimal")]
         public IActionResult GetAnimal(int id)
         {
-
             var animal = _animalInfoRepository.GetAnimal(id);
-
             if (animal == null)
             {
                 return NotFound();
             }
-            var animalToReturn = new AnimalDto()
-            {
-                Id = animal.Id,
-                Gender = animal.Gender,
-                Species = animal.Species,
-                ImageUrl = animal.ImageUrl,
-                Description = animal.Description,
-                Name = animal.Name
 
-            };
-
+            var animalToReturn = Mapper.Map<AnimalDto>(animal);
             return Ok(animalToReturn);
         }
+
         /// <summary>
         /// Create a new Animal
         /// </summary>
-        /// <param name="Animal">New Animal's information</param>
+        /// <param name="animal">New Animal's information</param>
         /// <returns>Newly created animal</returns>
+
         [HttpPost()]
-        public IActionResult CreateAnimal([FromBody] AnimalForCreationDto Animal)
+        public IActionResult CreateAnimal([FromBody] AnimalForCreationDto animal)
 
         {
-            if (Animal == null)
+            if (animal == null)
             {
                 return BadRequest();
             }
@@ -93,32 +76,30 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var highestAnimalId = DataStores.AnimalsDataStore.Current.Animals.Max(animal => animal.Id);
-            var newAnimal = new AnimalDto()
-            {
-                Id = ++highestAnimalId,
-                Name = Animal.Name,
-                Species = Animal.Species,
-                ImageUrl = Animal.ImageUrl,
-                Gender = Animal.Gender,
-                Description = Animal.Description,
-                IsAdopted = Animal.IsAdopted,
-                ShelterId = Animal.ShelterId
-            };
+            var newAnimal = Mapper.Map<Entities.Animal>(animal);
+            _animalInfoRepository.AddAnimal(newAnimal);
 
-            DataStores.AnimalsDataStore.Current.Animals.Add(newAnimal);
-            return CreatedAtRoute("GetAnimal", new { id = newAnimal.Id }, newAnimal);
+            // If animal is successfully created, map the animal info to Data transfer Object to return
+            if (!_animalInfoRepository.Save())
+            {
+                return StatusCode(500);
+            }
+
+            var successfullyCreatedAnimal = Mapper.Map<Models.AnimalDto>(newAnimal);
+            return CreatedAtRoute("GetAnimal", new { id = newAnimal.Id }, successfullyCreatedAnimal);
         }
+
         /// <summary>
         /// Update an animal's information
         /// </summary>
         /// <param name="id">Animal's ID</param>
-        /// <param name="UpdatedAnimalInfo">Animal with updated information</param>
+        /// <param name="updatedAnimalInfo">Animal with updated information</param>
         /// <returns>Newly updated animal</returns>
+
         [HttpPut("{id}")]
-        public IActionResult UpdateAnimal(int id, [FromBody] AnimalDto UpdatedAnimalInfo )
+        public IActionResult UpdateAnimal(int id, [FromBody] AnimalDto updatedAnimalInfo )
         {
-            if ( UpdatedAnimalInfo == null )
+            if ( updatedAnimalInfo == null )
             {
                 return BadRequest();
             }
@@ -127,37 +108,47 @@ namespace RescueRangers.API.Controllers
                 return BadRequest();
             }
 
-            var animalToUpdate = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
-
-
+            // Find the animal to update
+            var currentAnimals = _animalInfoRepository.GetAnimals();
+            var animalToUpdate = currentAnimals.FirstOrDefault(animal => animal.Id == id);
             if (animalToUpdate == null)
             {
                 return NotFound();
 
             }
 
-            animalToUpdate.Name = UpdatedAnimalInfo.Name;
-            animalToUpdate.Species = UpdatedAnimalInfo.Species;
-            animalToUpdate.ImageUrl = UpdatedAnimalInfo.ImageUrl;
-            animalToUpdate.Gender = UpdatedAnimalInfo.Gender;
-            animalToUpdate.Description = UpdatedAnimalInfo.Description;
+            // Map the new info to animal to be updated and save
+            Mapper.Map(updatedAnimalInfo, animalToUpdate);
+            if (!_animalInfoRepository.Save())
+            {
+                return StatusCode(500);
+            }
 
             return Ok(animalToUpdate);
         }
+
         /// <summary>
         /// Delete an animal
         /// </summary>
         /// <param name="id">Animal's ID</param>
         /// <returns>Nothing</returns>
+
         [HttpDelete("{id}")]
         public IActionResult DeleteAnimal(int id)
         {
-            var animalToDelete = DataStores.AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == id);
+            var animalEntities = _animalInfoRepository.GetAnimals();
+            var animalToDelete = animalEntities.FirstOrDefault(animal => animal.Id == id);
             if ( animalToDelete == null )
             {
                 return NotFound(); 
             }
-            DataStores.AnimalsDataStore.Current.Animals.Remove(animalToDelete);
+
+            _animalInfoRepository.DeleteAnimal(animalToDelete);
+
+            if (!_animalInfoRepository.Save())
+            {
+                return StatusCode(500);
+            }
 
             return Ok();
         }

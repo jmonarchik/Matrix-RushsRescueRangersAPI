@@ -11,5 +11,8 @@ namespace RescueRangers.API.Services
         IEnumerable<Animal> GetAnimals();
 
         Animal GetAnimal(int animalId);
+        void AddAnimal(Animal animal);
+        void DeleteAnimal(Animal animal);
+        bool Save();
     }
 }
