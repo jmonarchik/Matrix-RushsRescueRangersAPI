@@ -18,7 +18,7 @@ namespace RescueRangers.API.Entities
         public string Gender { get; set; }
         public string Description { get; set; }
         public bool? IsAdopted { get; set; }
-        public int? AdoptionId { get; set; }
-        public int? ShelterId { get; set; }
+        public uint? AdoptionId { get; set; }
+        public uint? ShelterId { get; set; }
     }
 }

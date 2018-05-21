@@ -17,7 +17,7 @@ namespace RescueRangers.API.Services
         {
             return _context.Animals.OrderBy(animal => animal.Id).ToList();
         }
-        public Animal GetAnimal(int animalId)
+        public Animal GetAnimal(uint animalId)
         {
             return _context.Animals.Where(animal => animal.Id == animalId).FirstOrDefault();
         }
@@ -28,6 +28,22 @@ namespace RescueRangers.API.Services
         public void DeleteAnimal(Animal animal)
         {
             _context.Animals.Remove(animal);
+        }
+        public IEnumerable<Adoption> GetAdoptions()
+        {
+            return _context.Adoptions.ToList();
+        }
+        public void AddAdoption(Adoption adoption)
+        {
+            _context.Adoptions.Add(adoption);
+        }
+        public IEnumerable<Adopter> GetAdopters() 
+        {
+            return _context.Adopters.ToList();
+        }
+        public void AddAdopter(Adopter adopter)
+        {
+            _context.Adopters.Add(adopter);
         }
         public bool Save()
         {

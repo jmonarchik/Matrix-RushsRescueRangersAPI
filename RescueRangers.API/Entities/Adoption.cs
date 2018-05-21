@@ -11,13 +11,13 @@ namespace RescueRangers.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public uint Id { get; set; }
         [Required]
         [ForeignKey("AnimalId")]
-        public int AnimalId { get; set; }
+        public uint AnimalId { get; set; }
         [Required]
         [ForeignKey("AdopterId")]
-        public int AdopterId { get; set; }
+        public uint AdopterId { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
     }

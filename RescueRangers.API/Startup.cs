@@ -82,6 +82,9 @@ namespace RescueRangers.API
             {
                 config.CreateMap<Entities.Animal, Models.AnimalDto>();
                 config.CreateMap<Models.AnimalForCreationDto, Entities.Animal>();
+                config.CreateMap<Entities.Adoption, Models.AdopterDto>();
+                config.CreateMap<Models.AdoptionDto, Entities.Adoption>();
+                config.CreateMap<Models.AdopterDto, Entities.Adopter>();
             });
 
             app.UseMvc();
