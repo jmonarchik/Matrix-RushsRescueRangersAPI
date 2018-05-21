@@ -24,8 +24,9 @@ API for the Matrix-RushsRescueRangers app
 	* ~~Create Animal~~
 	* ~~Delete Animal~~
 	* ~~Update Animal~~
-	* Adoptions
-11. Refactor create Adoption function.
+	* ~~Adoptions~~
+11. ~~Refactor create Adoption function.~~
+12. ~~Incorporate stricter checks on POST requests and provide customized error messages.~~
 12. Rethink some data types and clean up code.	
 
 
