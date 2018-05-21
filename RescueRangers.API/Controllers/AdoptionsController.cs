@@ -1,4 +1,6 @@
-﻿                                                                                                                using RescueRangers.API.Models;
+﻿using RescueRangers.API.Services;
+using AutoMapper;
+using RescueRangers.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RescueRangers.API.DataStores;
+using RescueRangers.API.Entities;
 
 namespace RescueRangers.API.Controllers
 {
@@ -14,15 +17,46 @@ namespace RescueRangers.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     public class AdoptionsController : Controller
-    {   
+    {
+        private IAnimalInfoRepository _animalInfoRepository;
+        public AdoptionsController(IAnimalInfoRepository animalInfoRepository)
+        {
+            _animalInfoRepository = animalInfoRepository;
+        }
+        private Adopter newAdopter;
+        private uint newAdopterId;
+        private Adoption newAdoption;
+
+        private void CreateAdopter(AdopterDto adopter)
+        {
+            var currentAdopters = _animalInfoRepository.GetAdopters();
+            newAdopter = Mapper.Map<Adopter>(adopter);
+            _animalInfoRepository.AddAdopter(newAdopter);
+
+            if (_animalInfoRepository.Save())
+            {
+                newAdopterId = newAdopter.Id;
+            }
+        }
+        private IActionResult UpdateAnimal(Animal animal)
+        {
+            animal.IsAdopted = true;
+            animal.AdoptionId = newAdoption.Id;
+            var animalToReturn = Mapper.Map<AnimalDto>(animal);
+            return Ok(animal);
+        }
+
         /// <summary>
         /// Get all adoptions
         /// </summary>
         /// <returns>Array of adoptions</returns>
+        /// 
         [HttpGet()]
         public IActionResult GetAdoptions()
         {
-            return Ok(AdoptionsDataStore.Current.Adoptions);
+            var adoptionEntities = _animalInfoRepository.GetAdoptions();
+            var results = Mapper.Map<IEnumerable<AdoptionDto>>(adoptionEntities);
+            return Ok(results);
         }
 
         /// <summary>
@@ -37,64 +71,34 @@ namespace RescueRangers.API.Controllers
             {
                 return BadRequest();
             }
+
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            var currentAdopters = DataStores.AdoptersDataStore.Current.Adopters;
+            CreateAdopter(adoptionBody.Adopter);
 
-            uint HighestAdopterId;
-            if (currentAdopters.Any())
+            newAdoption = new Adoption()
             {
-                HighestAdopterId = currentAdopters.Max(adopter => adopter.Id);
-            } else
-            {
-                HighestAdopterId = 0;
-            }
-            
-            var newAdopter = new AdopterDto()
-            {
-                Id = ++HighestAdopterId,
-                FirstName = adoptionBody.Adopter.FirstName,
-                LastName = adoptionBody.Adopter.LastName, 
-                Address = adoptionBody.Adopter.Address,
-                City = adoptionBody.Adopter.City,
-                Zipcode = adoptionBody.Adopter.Zipcode,
-                PhoneNo = adoptionBody.Adopter.PhoneNo
-            };
-            AdoptersDataStore.Current.Adopters.Add(newAdopter);
-
-            var CurrentAdoptions = DataStores.AdoptionsDataStore.Current.Adoptions;
-            uint HighestAdoptionId;
-
-            if ( CurrentAdoptions.Any())
-            {
-                HighestAdoptionId = DataStores.AdoptionsDataStore.Current.Adoptions.Max(adoption => adoption.Id);
-            } else
-            {
-                HighestAdoptionId = 0;
-            }
-
-            var newAdoption = new AdoptionDto()
-            {
-                Id = ++HighestAdoptionId,
-                AdopterId = newAdopter.Id,
+                AdopterId = newAdopterId,
                 AnimalId = adoptionBody.Animal.Id,
                 Date = DateTime.Today
             };
-            AdoptionsDataStore.Current.Adoptions.Add(newAdoption);
 
-            var animalToUpdate = AnimalsDataStore.Current.Animals.FirstOrDefault(animal => animal.Id == adoptionBody.Animal.Id);
+            _animalInfoRepository.AddAdoption(newAdoption);
+            if (!_animalInfoRepository.Save())
+            {
+                return StatusCode(500);
+            }
+
+            var animalToUpdate = _animalInfoRepository.GetAnimal(adoptionBody.Animal.Id);
             if ( animalToUpdate == null )
             {
                 return NotFound();
             }
-
-            animalToUpdate.IsAdopted = true;
-            animalToUpdate.AdoptionId = newAdoption.Id;
-
-            return Ok(animalToUpdate);
+            return UpdateAnimal(animalToUpdate);
         }
+
     }
 }

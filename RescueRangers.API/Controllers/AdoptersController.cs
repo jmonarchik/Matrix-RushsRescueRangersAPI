@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RescueRangers.API.DataStores;
+using RescueRangers.API.Entities;
+using RescueRangers.API.Services;
+
 
 namespace RescueRangers.API.Controllers
 {
@@ -15,6 +18,12 @@ namespace RescueRangers.API.Controllers
     [Route("api/[controller]")]
     public class AdoptersController : Controller
     {
+        private IAnimalInfoRepository _animalInfoRepository;
+        public AdoptersController(IAnimalInfoRepository animalInfoRepository)
+        {
+            _animalInfoRepository = animalInfoRepository;
+        }
+
         /// <summary>
         /// Get all adopters
         /// </summary>
@@ -22,7 +31,7 @@ namespace RescueRangers.API.Controllers
         [HttpGet()]
         public IActionResult GetAdopters()
         {
-            return Ok(AdoptersDataStore.Current.Adopters);
+            return Ok(_animalInfoRepository.GetAdopters());
         }
     }
 }

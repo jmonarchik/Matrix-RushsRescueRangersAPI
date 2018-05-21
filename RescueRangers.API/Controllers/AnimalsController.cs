@@ -44,7 +44,7 @@ namespace RescueRangers.API.Controllers
         /// <returns>Animal with specified ID</returns>
 
         [HttpGet("{id}", Name = "GetAnimal")]
-        public IActionResult GetAnimal(int id)
+        public IActionResult GetAnimal(uint id)
         {
             var animal = _animalInfoRepository.GetAnimal(id);
             if (animal == null)
@@ -73,7 +73,7 @@ namespace RescueRangers.API.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var newAnimal = Mapper.Map<Entities.Animal>(animal);
