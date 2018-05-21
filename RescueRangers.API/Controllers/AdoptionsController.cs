@@ -65,7 +65,7 @@ namespace RescueRangers.API.Controllers
         /// <param name="adoptionBody">Object containing adopter and animal objects</param>
         /// <returns>Adopted animal</returns>
         [HttpPost()]
-        public IActionResult CreateAdoption([FromBody] AdoptionBody adoptionBody)
+        public IActionResult CreateAdoption([FromBody] AdoptionObject adoptionBody)
         {
             if (adoptionBody.Animal == null || adoptionBody.Adopter == null)
             {

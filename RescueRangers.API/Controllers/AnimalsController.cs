@@ -23,6 +23,15 @@ namespace RescueRangers.API.Controllers
             _animalInfoRepository = animalInfoRepository;
         }
 
+        private void DeleteRelatedAdoptions(int animalId)
+        {
+            var relatedAdoptions = _animalInfoRepository.GetAdoptions().Where(adoption => adoption.AnimalId == animalId);
+            foreach (var adoption in relatedAdoptions)
+            {
+                _animalInfoRepository.DeleteAdoption(adoption);
+            }
+        }
+
         /// <summary>
         /// Get All Animals
         /// </summary>
@@ -143,6 +152,8 @@ namespace RescueRangers.API.Controllers
                 return NotFound(); 
             }
 
+            DeleteRelatedAdoptions(id);
+
             _animalInfoRepository.DeleteAnimal(animalToDelete);
 
             if (!_animalInfoRepository.Save())
@@ -152,5 +163,7 @@ namespace RescueRangers.API.Controllers
 
             return Ok();
         }
+
+
     }
 }

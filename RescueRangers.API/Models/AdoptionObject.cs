@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RescueRangers.API.Models
 {
-    public class AdoptionBody
+    public class AdoptionObject
     {
         public AnimalDto Animal { get; set; }
         public AdopterDto Adopter { get; set; }

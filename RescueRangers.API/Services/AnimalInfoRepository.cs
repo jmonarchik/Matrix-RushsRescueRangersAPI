@@ -37,6 +37,10 @@ namespace RescueRangers.API.Services
         {
             _context.Adoptions.Add(adoption);
         }
+        public void DeleteAdoption(Adoption adoption)
+        {
+            _context.Adoptions.Remove(adoption);
+        }
         public IEnumerable<Adopter> GetAdopters() 
         {
             return _context.Adopters.ToList();
