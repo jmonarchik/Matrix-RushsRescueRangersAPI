@@ -16,6 +16,7 @@ namespace RescueRangers.API.Services
         IEnumerable<Adoption> GetAdoptions();
         IEnumerable<Adopter> GetAdopters();
         void AddAdoption(Adoption adoption);
+        void DeleteAdoption(Adoption adoption);
         void AddAdopter(Adopter adopter);
         bool Save();
     }

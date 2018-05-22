@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RescueRangers.API.DataStores;
 using RescueRangers.API.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace RescueRangers.API.Controllers
 {
@@ -19,9 +20,11 @@ namespace RescueRangers.API.Controllers
     public class AdoptionsController : Controller
     {
         private IAnimalInfoRepository _animalInfoRepository;
-        public AdoptionsController(IAnimalInfoRepository animalInfoRepository)
+        private ILogger<AdoptionsController> _logger;
+        public AdoptionsController(IAnimalInfoRepository animalInfoRepository, ILogger<AdoptionsController> logger)
         {
             _animalInfoRepository = animalInfoRepository;
+            _logger = logger;
         }
         private Adopter newAdopter;
         private uint newAdopterId;
@@ -62,39 +65,43 @@ namespace RescueRangers.API.Controllers
         /// <summary>
         /// Create a new adoption
         /// </summary>
-        /// <param name="adoptionBody">Object containing adopter and animal objects</param>
+        /// <param name="adoptionObject">Object containing adopter and animal objects</param>
         /// <returns>Adopted animal</returns>
         [HttpPost()]
-        public IActionResult CreateAdoption([FromBody] AdoptionBody adoptionBody)
+        public IActionResult CreateAdoption([FromBody] AdoptionObject adoptionObject)
         {
-            if (adoptionBody.Animal == null || adoptionBody.Adopter == null)
+            if (adoptionObject.Animal == null || adoptionObject.Adopter == null)
             {
+                _logger.LogInformation($"Animal: {adoptionObject.Animal}, Adopter: {adoptionObject.Adopter} provided. Neither can be null.");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
+                _logger.LogInformation($"Model state not valid. Message - {ModelState}");
                 return BadRequest(ModelState);
             }
 
-            CreateAdopter(adoptionBody.Adopter);
+            CreateAdopter(adoptionObject.Adopter);
 
             newAdoption = new Adoption()
             {
                 AdopterId = newAdopterId,
-                AnimalId = adoptionBody.Animal.Id,
+                AnimalId = adoptionObject.Animal.Id,
                 Date = DateTime.Today
             };
 
             _animalInfoRepository.AddAdoption(newAdoption);
             if (!_animalInfoRepository.Save())
             {
+                _logger.LogInformation($"{newAdoption} not successfully saved.");
                 return StatusCode(500);
             }
 
-            var animalToUpdate = _animalInfoRepository.GetAnimal(adoptionBody.Animal.Id);
+            var animalToUpdate = _animalInfoRepository.GetAnimal(adoptionObject.Animal.Id);
             if ( animalToUpdate == null )
             {
+                _logger.LogInformation($"No animal found with id {adoptionObject.Animal.Id}");
                 return NotFound();
             }
             return UpdateAnimal(animalToUpdate);
