@@ -56,7 +56,7 @@ namespace RescueRangers.API.Controllers
         /// <returns>Animal with specified ID</returns>
 
         [HttpGet("{id}", Name = "GetAnimal")]
-        public IActionResult GetAnimal(uint id)
+        public IActionResult GetAnimal(int id)
         {
             var animal = _animalInfoRepository.GetAnimal(id);
             if (animal == null)
@@ -76,13 +76,13 @@ namespace RescueRangers.API.Controllers
         /// <returns>Newly created animal</returns>
 
         [HttpPost()]
-        public IActionResult CreateAnimal([FromBody] AnimalForCreationDto animal)
+        public IActionResult CreateAnimal([FromBody] AnimalDto animal)
 
         {
             if (animal == null)
             {
                 _logger.LogInformation($"No animal for creation. {animal} was provided.");
-                return BadRequest($"No animal for creation. {animal} was provided.");
+                return BadRequest($"No animal for creation. null was provided.");
             }
 
             if (!ModelState.IsValid)
