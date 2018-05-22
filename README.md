@@ -27,7 +27,9 @@ API for the Matrix-RushsRescueRangers app
 	* ~~Adoptions~~
 11. ~~Refactor create Adoption function.~~
 12. ~~Incorporate stricter checks on POST requests and provide customized error messages.~~
-12. Rethink some data types and clean up code.	
+13. Incorporate a logger.
+14. User CRUD functions.
+15. Rethink some data types and clean up code.	
 
 
 **Swagger Info**
