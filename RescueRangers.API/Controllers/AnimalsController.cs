@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RescueRangers.API.Services;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,9 +18,11 @@ namespace RescueRangers.API.Controllers
     [Route("api/[controller]")]
     public class AnimalsController : Controller
     {
+        private ILogger<AnimalsController> _logger;
         private IAnimalInfoRepository _animalInfoRepository;
-        public AnimalsController(IAnimalInfoRepository animalInfoRepository)
+        public AnimalsController(ILogger<AnimalsController> logger, IAnimalInfoRepository animalInfoRepository)
         {
+            _logger = logger;
             _animalInfoRepository = animalInfoRepository;
         }
 
@@ -58,7 +61,8 @@ namespace RescueRangers.API.Controllers
             var animal = _animalInfoRepository.GetAnimal(id);
             if (animal == null)
             {
-                return NotFound();
+                _logger.LogInformation($"Animal with id {id} not found.");
+                return NotFound($"Animal with id {id} not found.");
             }
 
             var animalToReturn = Mapper.Map<AnimalDto>(animal);
@@ -77,7 +81,8 @@ namespace RescueRangers.API.Controllers
         {
             if (animal == null)
             {
-                return BadRequest();
+                _logger.LogInformation($"No animal for creation. {animal} was provided.");
+                return BadRequest($"No animal for creation. {animal} was provided.");
             }
 
             if (!ModelState.IsValid)
@@ -91,7 +96,7 @@ namespace RescueRangers.API.Controllers
             // If animal is successfully created, map the animal info to Data transfer Object to return
             if (!_animalInfoRepository.Save())
             {
-                return StatusCode(500);
+                return StatusCode(500, $"{newAnimal} was not saved succesfully.");
             }
 
             var successfullyCreatedAnimal = Mapper.Map<Models.AnimalDto>(newAnimal);
@@ -110,6 +115,7 @@ namespace RescueRangers.API.Controllers
         {
             if ( updatedAnimalInfo == null )
             {
+                _logger.LogInformation($"Information needed to update animal. {updatedAnimalInfo} was provided.");
                 return BadRequest();
             }
             if ( !ModelState.IsValid )
@@ -149,6 +155,7 @@ namespace RescueRangers.API.Controllers
             var animalToDelete = animalEntities.FirstOrDefault(animal => animal.Id == id);
             if ( animalToDelete == null )
             {
+                _logger.LogInformation($"Animal with id {id} not found.");
                 return NotFound(); 
             }
 
@@ -158,6 +165,7 @@ namespace RescueRangers.API.Controllers
 
             if (!_animalInfoRepository.Save())
             {
+                _logger.LogInformation($"Deletion of {animalToDelete} unsuccessful.");
                 return StatusCode(500);
             }
 
