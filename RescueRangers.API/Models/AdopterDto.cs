@@ -14,7 +14,7 @@ namespace RescueRangers.API.Models
         /// <summary>
         /// Id
         /// </summary>
-        public uint Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// First Name
         /// </summary>
@@ -44,7 +44,7 @@ namespace RescueRangers.API.Models
         /// Postal Code
         /// </summary>
         [Required(ErrorMessage = "You must provide a Postal Code")]
-        public uint PostalCode { get; set; }
+        public int PostalCode { get; set; }
         /// <summary>
         /// Phone Number
         /// </summary>

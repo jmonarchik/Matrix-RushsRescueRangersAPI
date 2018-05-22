@@ -10,7 +10,7 @@ namespace RescueRangers.API.Services
     {
         IEnumerable<Animal> GetAnimals();
 
-        Animal GetAnimal(uint animalId);
+        Animal GetAnimal(int animalId);
         void AddAnimal(Animal animal);
         void DeleteAnimal(Animal animal);
         IEnumerable<Adoption> GetAdoptions();

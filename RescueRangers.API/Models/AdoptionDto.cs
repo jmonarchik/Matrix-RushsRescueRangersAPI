@@ -9,13 +9,13 @@ namespace RescueRangers.API.Models
 {
     public class AdoptionDto
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public uint AnimalId { get; set; }
+        public int AnimalId { get; set; }
 
         [Required]
-        public uint AdopterId { get; set; }
+        public int AdopterId { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }

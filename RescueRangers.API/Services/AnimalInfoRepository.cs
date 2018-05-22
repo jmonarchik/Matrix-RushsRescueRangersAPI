@@ -17,7 +17,7 @@ namespace RescueRangers.API.Services
         {
             return _context.Animals.OrderBy(animal => animal.Id).ToList();
         }
-        public Animal GetAnimal(uint animalId)
+        public Animal GetAnimal(int animalId)
         {
             return _context.Animals.Where(animal => animal.Id == animalId).FirstOrDefault();
         }

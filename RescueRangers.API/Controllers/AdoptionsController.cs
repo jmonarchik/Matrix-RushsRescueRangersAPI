@@ -27,7 +27,7 @@ namespace RescueRangers.API.Controllers
             _logger = logger;
         }
         private Adopter newAdopter;
-        private uint newAdopterId;
+        private int newAdopterId;
         private Adoption newAdoption;
 
         private void CreateAdopter(AdopterDto adopter)
@@ -44,7 +44,6 @@ namespace RescueRangers.API.Controllers
         private IActionResult UpdateAnimal(Animal animal)
         {
             animal.IsAdopted = true;
-            animal.AdoptionId = newAdoption.Id;
             var animalToReturn = Mapper.Map<AnimalDto>(animal);
             return Ok(animal);
         }
@@ -87,7 +86,7 @@ namespace RescueRangers.API.Controllers
             newAdoption = new Adoption()
             {
                 AdopterId = newAdopterId,
-                AnimalId = adoptionObject.Animal.Id,
+                AnimalId = adoptionObject.Animal.Id.GetValueOrDefault(),
                 Date = DateTime.Today
             };
 
@@ -98,7 +97,7 @@ namespace RescueRangers.API.Controllers
                 return StatusCode(500);
             }
 
-            var animalToUpdate = _animalInfoRepository.GetAnimal(adoptionObject.Animal.Id);
+            var animalToUpdate = _animalInfoRepository.GetAnimal(adoptionObject.Animal.Id.GetValueOrDefault());
             if ( animalToUpdate == null )
             {
                 _logger.LogInformation($"No animal found with id {adoptionObject.Animal.Id}");
@@ -106,6 +105,5 @@ namespace RescueRangers.API.Controllers
             }
             return UpdateAnimal(animalToUpdate);
         }
-
     }
 }
