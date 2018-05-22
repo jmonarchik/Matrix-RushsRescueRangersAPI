@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Debug;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Reflection;
@@ -56,9 +55,12 @@ namespace RescueRangers.API
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 #pragma warning disable CA1822 // Mark members as static
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 #pragma warning restore CA1822 // Mark members as static
         {
+            loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
