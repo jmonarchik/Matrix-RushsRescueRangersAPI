@@ -15,5 +15,6 @@ namespace RescueRangers.API.Entities
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Adoption> Adoptions { get; set; }
         public DbSet<Adopter> Adopters { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
