@@ -37,8 +37,8 @@ namespace RescueRangers.API.Controllers
                 return StatusCode(500, $"{newUser} was not saved succesfully.");
             }
 
-            var successfullyCreatedAnimal = Mapper.Map<Models.UserDto>(newUser);
-            return CreatedAtRoute("GetAnimal", new { id = newUser.UserId }, successfullyCreatedAnimal);
+            var successfullyCreatedUser = Mapper.Map<Models.UserDto>(newUser);
+            return Ok(successfullyCreatedUser);
 
         }
     }

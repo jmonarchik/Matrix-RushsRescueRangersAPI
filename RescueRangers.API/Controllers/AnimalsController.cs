@@ -20,7 +20,11 @@ namespace RescueRangers.API.Controllers
     {
         private ILogger<AnimalsController> _logger;
         private IAnimalInfoRepository _animalInfoRepository;
-        public AnimalsController(ILogger<AnimalsController> logger, IAnimalInfoRepository animalInfoRepository)
+        public AnimalsController
+            (
+            ILogger<AnimalsController> logger, 
+            IAnimalInfoRepository animalInfoRepository
+            )
         {
             _logger = logger;
             _animalInfoRepository = animalInfoRepository;
