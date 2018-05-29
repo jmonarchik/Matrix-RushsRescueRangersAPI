@@ -30,6 +30,10 @@ API for the Matrix-RushsRescueRangers app
 13. ~~Incorporate a logger.~~
 14. ~~Get Rid of animalForCreationDto Model~~
 15. User CRUD functions.
+	* ~~Create User~~
+	* Edit User
+	* Delete User
+	* Get a specific User
 16. Rethink some data types and clean up code.	
 
 

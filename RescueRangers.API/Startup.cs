@@ -87,6 +87,7 @@ namespace RescueRangers.API
                 config.CreateMap<Entities.Adoption, Models.AdopterDto>();
                 config.CreateMap<Models.AdoptionDto, Entities.Adoption>();
                 config.CreateMap<Models.AdopterDto, Entities.Adopter>();
+                config.CreateMap<Models.UserDto, Entities.User>();
             });
 
             app.UseMvc();
