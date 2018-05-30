@@ -49,14 +49,6 @@ namespace RescueRangers.API.Services
         {
             _context.Adopters.Add(adopter);
         }
-        public void AddUser(User user)
-        {
-            _context.Users.Add(user);
-        }
-        public IEnumerable<User> GetUsers()
-        {
-            return _context.Users.ToList();
-        }
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
