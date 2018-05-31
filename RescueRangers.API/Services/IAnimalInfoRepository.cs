@@ -18,8 +18,6 @@ namespace RescueRangers.API.Services
         void AddAdoption(Adoption adoption);
         void DeleteAdoption(Adoption adoption);
         void AddAdopter(Adopter adopter);
-        IEnumerable<User> GetUsers();
-        void AddUser(User user);
         bool Save();
     }
 }

@@ -44,7 +44,7 @@ namespace RescueRangers.API.Controllers
         /// </summary>
         /// <returns></returns>
 
-        [HttpGet()]
+        [HttpGet]
         public IActionResult GetAnimals()
         {
             var animalEntities = _animalInfoRepository.GetAnimals();
@@ -79,7 +79,7 @@ namespace RescueRangers.API.Controllers
         /// <param name="animal">New Animal's information</param>
         /// <returns>Newly created animal</returns>
 
-        [HttpPost()]
+        [HttpPost]
         public IActionResult CreateAnimal([FromBody] AnimalDto animal)
 
         {
@@ -133,7 +133,6 @@ namespace RescueRangers.API.Controllers
             if (animalToUpdate == null)
             {
                 return NotFound();
-
             }
 
             // Map the new info to animal to be updated and save
